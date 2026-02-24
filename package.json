@@ -14,10 +14,15 @@
     "fmt:check": "oxfmt --check"
   },
   "dependencies": {
-    "astro": "5.17.1"
+    "@astrojs/react": "4.4.2",
+    "astro": "5.17.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.6",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "oxfmt": "0.35.0",
     "oxlint": "1.50.0",
     "oxlint-tsgolint": "0.14.2"
