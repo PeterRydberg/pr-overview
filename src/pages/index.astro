@@ -95,21 +95,14 @@ const closedPRs = [
   }
 
   <script>
-    const { signIn, signOut } = await import("../lib/authClient.ts");
-    const loginButton = document.querySelector("#login");
+    const { signOut } = await import("../lib/auth/authClient.ts");
     const logoutButton = document.querySelector("#logout");
 
-    loginButton?.addEventListener("click", () =>
-      signIn.social({
-        provider: "github",
-        callbackURL: "/",
-      }),
-    );
     logoutButton?.addEventListener("click", () =>
       signOut({
         fetchOptions: {
           onSuccess: () => {
-            window.location.href = "/";
+            window.location.href = "/login";
           },
         },
       }),
