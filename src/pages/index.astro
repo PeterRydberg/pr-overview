@@ -1,7 +1,54 @@
 ---
+import { Octokit } from "octokit";
 import Layout from "../layouts/Layout.astro";
+import {
+  pullRequestsQuery,
+  type PullRequestsData,
+} from "../lib/queries/pull_requests";
 
 export const prerender = false;
+
+const fetchPRs = async () => {
+  const token = Astro.locals.accessToken?.accessToken;
+  const user = Astro.locals.user;
+
+  if (!token || !user) {
+    console.error("No access token or user found. Something doesn't work");
+    return;
+  }
+
+  const octokit = new Octokit({ auth: token });
+
+  // Ideally, I should be able to add this `review-requested:${login} OR ${joinedTeamsFilter}`.
+  // This does not work, see https://github.com/orgs/community/discussions/5289?sort=old
+  /*const teams = await octokit.rest.teams.listForAuthenticatedUser();
+  const joinedTeamsFilter = teams.data
+    .map(
+      (team) => `team-review-requested:${team.organization.login}/${team.slug}`,
+    )
+    .join(" AND ");*/
+
+  const login = "@me";
+  const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+
+  return await octokit.graphql<PullRequestsData>(pullRequestsQuery, {
+    myOpenQuery: `is:pr is:open author:${login}`,
+    assignedOpenQuery: `is:pr is:open review-requested:${login}`,
+    myClosedRecentQuery: `is:pr is:closed author:${login} closed:>=${twoWeeksAgo}`,
+    assignedClosedRecentQuery: `is:pr is:closed reviewed-by:@me closed:>=${twoWeeksAgo}`,
+  });
+};
+
+const pullRequests = await fetchPRs();
+const closedPRs = [
+  ...(pullRequests?.myClosedRecentPRs.nodes || []),
+  ...(pullRequests?.assignedClosedRecentPRs.nodes || []),
+].sort(
+  (a, b) =>
+    new Date(b.closedAt ?? 0).getTime() - new Date(a.closedAt ?? 0).getTime(),
+);
 ---
 
 <Layout>
@@ -13,6 +60,39 @@ export const prerender = false;
     )
   }
   <p>{Astro.locals.user?.name}</p>
+
+  {
+    Astro.locals.session && (
+      <div>
+        <h1>My Open PRs</h1>
+        <ul>
+          {pullRequests?.myOpenPRs.nodes.map((pr) => (
+            <li>
+              <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            </li>
+          ))}
+        </ul>
+
+        <h1>Assigned Open PRs</h1>
+        <ul>
+          {pullRequests?.assignedOpenPRs.nodes.map((pr) => (
+            <li>
+              <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            </li>
+          ))}
+        </ul>
+
+        <h1>Closed PRs</h1>
+        <ul>
+          {closedPRs.map((pr) => (
+            <li>
+              <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 
   <script>
     const { signIn, signOut } = await import("../lib/authClient.ts");
