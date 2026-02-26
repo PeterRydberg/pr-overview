@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = false;
+---
+
+<Layout>
+  <button id="login">Login with Github</button>
+</Layout>
+
+<script>
+  const { signIn } = await import("../lib/auth/authClient.ts");
+  const loginButton = document.querySelector("#login");
+
+  loginButton?.addEventListener("click", () =>
+    signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    }),
+  );
+</script>

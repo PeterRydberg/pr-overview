@@ -1,19 +1,22 @@
 import { defineMiddleware } from "astro:middleware";
-import { auth } from "./lib/auth";
+import { auth } from "./lib/auth/auth";
+import { isPublicPath } from "./lib/auth/paths";
+
+const normalizePath = (pathname: string) => {
+  return pathname !== "/" ? pathname.replace(/\/+$/, "") : "/";
+};
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const session = await auth.api.getSession({
     headers: context.request.headers,
   });
 
-  const accessToken = session
-    ? await auth.api.getAccessToken({
-        body: { providerId: "github" },
-        headers: context.request.headers,
-      })
-    : null;
-
   if (session) {
+    const accessToken = await auth.api.getAccessToken({
+      body: { providerId: "github" },
+      headers: context.request.headers,
+    });
+
     context.locals.user = session.user;
     context.locals.session = session.session;
     context.locals.accessToken = accessToken;
@@ -21,6 +24,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.user = null;
     context.locals.session = null;
     context.locals.accessToken = null;
+  }
+
+  const requestPath = normalizePath(new URL(context.request.url).pathname);
+
+  if (!session && !isPublicPath(requestPath)) {
+    return context.redirect("/login");
+  }
+
+  if (session && requestPath === "/login") {
+    return context.redirect("/");
   }
 
   return next();
