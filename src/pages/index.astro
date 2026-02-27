@@ -5,6 +5,8 @@ import {
   pullRequestsQuery,
   type PullRequestsData,
 } from "../lib/queries/pull_requests";
+import { Header } from "../components/Header/Header";
+import { Avatar } from "../components/Avatar/Avatar";
 
 export const prerender = false;
 
@@ -54,6 +56,10 @@ const closedPRs = [
 ---
 
 <Layout>
+  <Header slot="header">
+    <Avatar slot="avatar" client:load user={Astro.locals.user} />
+  </Header>
+
   {
     Astro.locals.session ? (
       <button id="logout">Logout</button>
