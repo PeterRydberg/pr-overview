@@ -1,5 +1,7 @@
+import type { User } from "better-auth";
+
 interface AvatarProps {
-  user: import("better-auth").User | null;
+  user: User | null;
 }
 
 export const Avatar = ({ user }: AvatarProps) => {
