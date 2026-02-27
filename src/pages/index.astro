@@ -45,10 +45,12 @@ const pullRequests = await fetchPRs();
 const closedPRs = [
   ...(pullRequests?.myClosedRecentPRs.nodes || []),
   ...(pullRequests?.assignedClosedRecentPRs.nodes || []),
-].sort(
-  (a, b) =>
-    new Date(b.closedAt ?? 0).getTime() - new Date(a.closedAt ?? 0).getTime(),
-);
+]
+  .filter((pr, index, self) => index === self.findIndex((p) => p.id === pr.id))
+  .sort(
+    (a, b) =>
+      new Date(b.closedAt ?? 0).getTime() - new Date(a.closedAt ?? 0).getTime(),
+  );
 ---
 
 <Layout>
