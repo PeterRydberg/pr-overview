@@ -7,6 +7,12 @@ const normalizePath = (pathname: string) => {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  const requestPath = normalizePath(new URL(context.request.url).pathname);
+
+  if (isPublicPath(requestPath)) {
+    return next();
+  }
+
   const session = await auth.api.getSession({
     headers: context.request.headers,
   });
@@ -26,14 +32,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.accessToken = null;
   }
 
-  const requestPath = normalizePath(new URL(context.request.url).pathname);
-
   if (!session && !isPublicPath(requestPath)) {
     return context.redirect("/login");
-  }
-
-  if (session && requestPath === "/login") {
-    return context.redirect("/");
   }
 
   return next();
