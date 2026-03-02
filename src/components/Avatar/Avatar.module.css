@@ -1,0 +1,15 @@
+.avatarWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    opacity: 0;
+    transition: opacity 200ms ease;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+}
