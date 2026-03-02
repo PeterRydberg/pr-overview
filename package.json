@@ -15,6 +15,9 @@
   },
   "dependencies": {
     "@astrojs/react": "4.4.2",
+    "@fontsource-variable/raleway": "5.2.8",
+    "@fontsource/cinzel-decorative": "5.2.8",
+    "@fontsource/prata": "5.2.7",
     "astro": "5.17.1",
     "better-auth": "1.4.19",
     "octokit": "5.0.5",
