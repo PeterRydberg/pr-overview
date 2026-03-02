@@ -14,4 +14,7 @@
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
   --text-3xl: 3rem;
+
+  /* Colors */
+  --color-gray-300: #e0e0e0;
 }

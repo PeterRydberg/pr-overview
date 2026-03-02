@@ -1,11 +1,12 @@
 import type { Slottable } from "../../types/slottable";
+import styles from "./Header.module.css";
 
-interface HeaderProps extends Slottable<"avatar"> {}
+interface HeaderProps extends Slottable<"avatar" | "loginLogoutButton"> {}
 
-export const Header = ({ avatar }: HeaderProps) => {
+export const Header = ({ avatar, loginLogoutButton }: HeaderProps) => {
   return (
-    <header>
-      <h1>Private header</h1>
+    <header className={styles.header}>
+      <>{loginLogoutButton}</>
       <>{avatar}</>
     </header>
   );
