@@ -14,3 +14,7 @@ declare namespace App {
     accessToken: AccessToken | null;
   }
 }
+
+interface Window {
+  __locale?: string;
+}

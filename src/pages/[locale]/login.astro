@@ -1,0 +1,36 @@
+---
+import Header from "../../components/Header/Header.astro";
+import Layout from "../../layouts/Layout.astro";
+import { locales, getTranslations } from "../../i18n/utils";
+
+export const getStaticPaths = () => {
+  return locales.map((locale) => ({ params: { locale } }));
+};
+
+const locale = Astro.currentLocale;
+const t = getTranslations(locale);
+---
+
+<Layout>
+  <Header slot="header" />
+
+  <button id="login">{t("login.button")}</button>
+</Layout>
+
+<script define:vars={{ locale }}>
+  window.__locale = locale;
+</script>
+
+<script>
+  import { DEFAULT_LOCALE } from "../../i18n/utils";
+  import { signIn } from "../../lib/auth/authClient.ts";
+
+  const loginButton = document.querySelector("#login");
+
+  loginButton?.addEventListener("click", () =>
+    signIn.social({
+      provider: "github",
+      callbackURL: `/${window.__locale ?? DEFAULT_LOCALE}/`,
+    }),
+  );
+</script>
