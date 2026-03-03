@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import styles from "./Avatar.module.css";
 
-const user = Astro.props.user;
+const user = Astro.locals.user;
 ---
 
 <div class={styles.avatarWrapper}>

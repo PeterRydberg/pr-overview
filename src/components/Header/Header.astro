@@ -1,0 +1,26 @@
+---
+import Avatar from "../Avatar/Avatar.astro";
+import styles from "./Header.module.css";
+
+const session = Astro.locals.session;
+---
+
+<header class={styles.header}>
+  {session && <button id="logout">Logout</button>}
+  <Avatar />
+</header>
+
+<script>
+  const { signOut } = await import("../../lib/auth/authClient.ts");
+  const logoutButton = document.querySelector("#logout");
+
+  logoutButton?.addEventListener("click", () =>
+    signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          window.location.href = "/login";
+        },
+      },
+    }),
+  );
+</script>

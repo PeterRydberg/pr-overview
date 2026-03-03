@@ -62,7 +62,7 @@ export const PullRequestList = ({ accessToken, user }: PullRequestsListProps) =>
       <h1>My Open PRs</h1>
       <ul>
         {pullRequests?.myOpenPRs.nodes.map((pr) => (
-          <li>
+          <li key={pr.id}>
             <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
           </li>
         ))}
@@ -71,7 +71,7 @@ export const PullRequestList = ({ accessToken, user }: PullRequestsListProps) =>
       <h1>Assigned Open PRs</h1>
       <ul>
         {pullRequests?.assignedOpenPRs.nodes.map((pr) => (
-          <li>
+          <li key={pr.id}>
             <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
           </li>
         ))}
@@ -80,7 +80,7 @@ export const PullRequestList = ({ accessToken, user }: PullRequestsListProps) =>
       <h1>Closed PRs</h1>
       <ul>
         {closedPRs.map((pr) => (
-          <li>
+          <li key={pr.id}>
             <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
           </li>
         ))}

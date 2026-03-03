@@ -1,6 +1,5 @@
 ---
-import Avatar from "../components/Avatar/Avatar.astro";
-import { Header } from "../components/Header/Header";
+import Header from "../components/Header/Header.astro";
 import { PullRequestList } from "../components/PullRequestList/PullRequestList";
 import Layout from "../layouts/Layout.astro";
 
@@ -8,20 +7,7 @@ export const prerender = false;
 ---
 
 <Layout>
-  <Header slot="header">
-    <div slot="loginLogoutButton">
-      {
-        Astro.locals.session ? (
-          <button id="logout">Logout</button>
-        ) : (
-          <button id="login">Login</button>
-        )
-      }
-    </div>
-    <Avatar slot="avatar" client:load user={Astro.locals.user} />
-  </Header>
-
-  <p>{Astro.locals.user?.name}</p>
+  <Header slot="header" />
 
   {
     Astro.locals.accessToken?.accessToken && (
@@ -32,19 +18,4 @@ export const prerender = false;
       />
     )
   }
-
-  <script>
-    const { signOut } = await import("../lib/auth/authClient.ts");
-    const logoutButton = document.querySelector("#logout");
-
-    logoutButton?.addEventListener("click", () =>
-      signOut({
-        fetchOptions: {
-          onSuccess: () => {
-            window.location.href = "/login";
-          },
-        },
-      }),
-    );
-  </script>
 </Layout>
