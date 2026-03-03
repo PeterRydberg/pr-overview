@@ -1,5 +1,5 @@
-const PUBLIC_PATHS = ["/login"];
-const PUBLIC_PREFIXES = ["/_astro", "/api/auth"];
+export const PUBLIC_PATHS = ["/login"];
+export const PUBLIC_PREFIXES = ["/_astro", "/api/auth"];
 
 export const isPublicPath = (requestPath: string) =>
   PUBLIC_PATHS.includes(requestPath) ||

@@ -1,13 +1,32 @@
-import { defineMiddleware } from "astro:middleware";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { defineMiddleware, sequence } from "astro:middleware";
+import { DEFAULT_LOCALE } from "./i18n/utils";
 import { auth } from "./lib/auth/auth";
-import { isPublicPath } from "./lib/auth/paths";
+import { isPublicPath, PUBLIC_PREFIXES } from "./lib/auth/paths";
+import { getLocaleFromPathname, getPreferredLocale, normalizePath } from "./lib/path/paths";
 
-const normalizePath = (pathname: string) => {
-  return pathname !== "/" ? pathname.replace(/\/+$/, "") : "/";
-};
+const localeMiddleware = defineMiddleware((context, next) => {
+  const { pathname } = context.url;
+  const hasLocale = getLocaleFromPathname(pathname);
 
-export const onRequest = defineMiddleware(async (context, next) => {
-  const requestPath = normalizePath(new URL(context.request.url).pathname);
+  if (PUBLIC_PREFIXES.some((path) => pathname.startsWith(path))) {
+    return next();
+  }
+
+  if (!hasLocale) {
+    const locale = getPreferredLocale(context);
+    // Preserve the path, e.g. /login → /en/login
+    const target = pathname === "/" ? `/${locale}/` : `/${locale}${pathname}`;
+    return context.redirect(target, 302);
+  }
+
+  return next();
+});
+
+const authMiddleware = defineMiddleware(async (context, next) => {
+  const { pathname } = context.url;
+  const locale = getLocaleFromPathname(pathname) ?? DEFAULT_LOCALE;
+  const requestPath = normalizePath(pathname, locale);
 
   if (isPublicPath(requestPath)) {
     return next();
@@ -22,7 +41,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       body: { providerId: "github" },
       headers: context.request.headers,
     });
-
     context.locals.user = session.user;
     context.locals.session = session.session;
     context.locals.accessToken = accessToken;
@@ -32,9 +50,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.accessToken = null;
   }
 
-  if (!session && !isPublicPath(requestPath)) {
-    return context.redirect("/login");
+  if (!session) {
+    return context.redirect(getRelativeLocaleUrl(locale, "/login"), 302);
   }
 
   return next();
 });
+
+export const onRequest = sequence(localeMiddleware, authMiddleware);

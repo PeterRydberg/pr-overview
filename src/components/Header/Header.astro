@@ -3,6 +3,7 @@ import Avatar from "../Avatar/Avatar.astro";
 import styles from "./Header.module.css";
 
 const session = Astro.locals.session;
+const locale = Astro.currentLocale;
 ---
 
 <header class={styles.header}>
@@ -10,7 +11,13 @@ const session = Astro.locals.session;
   <Avatar />
 </header>
 
+<script define:vars={{ locale }}>
+  window.__locale = locale;
+</script>
+
 <script>
+  import { DEFAULT_LOCALE } from "../../i18n/utils";
+
   const { signOut } = await import("../../lib/auth/authClient.ts");
   const logoutButton = document.querySelector("#logout");
 
@@ -18,7 +25,7 @@ const session = Astro.locals.session;
     signOut({
       fetchOptions: {
         onSuccess: () => {
-          window.location.href = "/login";
+          window.location.href = `/${window.__locale ?? DEFAULT_LOCALE}/login`;
         },
       },
     }),
