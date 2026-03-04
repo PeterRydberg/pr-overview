@@ -1,3 +1,3 @@
 export const header = {
-  title: "PR-oversikt",
+  logout: "Logg ut",
 } as const;

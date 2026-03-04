@@ -1,21 +1,22 @@
-import { Octokit } from "octokit";
-import { pullRequestsQuery, type PullRequestsData } from "../../lib/queries/pull_requests";
 import type { User } from "better-auth";
+import { Octokit } from "octokit";
 import { useEffect, useState } from "react";
+import { getTranslations } from "../../i18n/utils";
+import { pullRequestsQuery, type PullRequestsData } from "../../lib/queries/pull_requests";
 
 interface PullRequestsListProps {
   accessToken: string;
   user: User | null;
+  locale?: string;
 }
 
-export const PullRequestList = ({ accessToken, user }: PullRequestsListProps) => {
+export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListProps) => {
   const [pullRequests, setPullRequests] = useState<PullRequestsData | null>(null);
+  const t = getTranslations(locale);
 
   useEffect(() => {
     const fetchPRs = async () => {
-      if (pullRequests !== null) {
-        return;
-      }
+      if (pullRequests !== null) return;
 
       if (!accessToken || !user) {
         console.error("No access accessToken or user found. Something doesn't work");
@@ -59,29 +60,29 @@ export const PullRequestList = ({ accessToken, user }: PullRequestsListProps) =>
 
   return (
     <div>
-      <h1>My Open PRs</h1>
+      <h1>{t("pullRequestList.myOpenPRs")}</h1>
       <ul>
         {pullRequests?.myOpenPRs.nodes.map((pr) => (
           <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
           </li>
         ))}
       </ul>
 
-      <h1>Assigned Open PRs</h1>
+      <h1>{t("pullRequestList.assignedOpenPRs")}</h1>
       <ul>
         {pullRequests?.assignedOpenPRs.nodes.map((pr) => (
           <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
           </li>
         ))}
       </ul>
 
-      <h1>Closed PRs</h1>
+      <h1>{t("pullRequestList.closedPRs")}</h1>
       <ul>
         {closedPRs.map((pr) => (
           <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> in {pr.repository.nameWithOwner}
+            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
           </li>
         ))}
       </ul>

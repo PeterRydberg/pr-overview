@@ -1,13 +1,16 @@
 ---
+import { getTranslations } from "../../i18n/utils";
 import Avatar from "../Avatar/Avatar.astro";
 import styles from "./Header.module.css";
 
 const session = Astro.locals.session;
 const locale = Astro.currentLocale;
+
+const t = getTranslations(locale);
 ---
 
 <header class={styles.header}>
-  {session && <button id="logout">Logout</button>}
+  {session && <button id="logout">{t("header.logout")}</button>}
   <Avatar />
 </header>
 

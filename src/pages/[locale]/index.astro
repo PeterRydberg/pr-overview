@@ -1,18 +1,15 @@
 ---
 import Header from "../../components/Header/Header.astro";
 import { PullRequestList } from "../../components/PullRequestList/PullRequestList";
-import { getTranslations } from "../../i18n/utils";
 import Layout from "../../layouts/Layout.astro";
 
 export const prerender = false;
 
-const locale = Astro.params.locale;
-const t = getTranslations(locale);
+const locale = Astro.currentLocale;
 ---
 
 <Layout>
   <Header slot="header" />
-  <p>{t("header.title")}</p>
 
   {
     Astro.locals.accessToken?.accessToken && (
@@ -20,6 +17,7 @@ const t = getTranslations(locale);
         client:load
         accessToken={Astro.locals.accessToken.accessToken}
         user={Astro.locals.user}
+        locale={locale}
       />
     )
   }
