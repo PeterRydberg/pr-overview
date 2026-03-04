@@ -5,6 +5,7 @@ import "@fontsource/prata";
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/typography.css";
+import Header from "../components/Header/Header.astro";
 ---
 
 <html lang="en">
@@ -17,7 +18,7 @@ import "../styles/typography.css";
     <title>PR Viewer</title>
   </head>
   <body>
-    <slot name="header" />
+    <Header />
     <slot />
   </body>
 </html>

@@ -9,8 +9,6 @@ const locale = Astro.currentLocale;
 ---
 
 <Layout>
-  <Header slot="header" />
-
   {
     Astro.locals.accessToken?.accessToken && (
       <PullRequestList
