@@ -3,6 +3,7 @@ import { Octokit } from "octokit";
 import { useEffect, useState } from "react";
 import { getTranslations } from "../../i18n/utils";
 import { pullRequestsQuery, type PullRequestsData } from "../../lib/queries/pull_requests";
+import styles from "./PullRequestList.module.css";
 
 interface PullRequestsListProps {
   accessToken: string;
@@ -51,38 +52,72 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
     void fetchPRs();
   }, [accessToken, user]);
 
+  const fetchedPRs = pullRequests !== null;
+  const openPRs = pullRequests?.myOpenPRs.nodes;
+  const openAssignedPRs = pullRequests?.assignedOpenPRs.nodes;
   const closedPRs = [
     ...(pullRequests?.myClosedRecentPRs.nodes || []),
     ...(pullRequests?.assignedClosedRecentPRs.nodes || []),
   ]
     .filter((pr, index, self) => index === self.findIndex((p) => p.id === pr.id))
     .sort((a, b) => new Date(b.closedAt ?? 0).getTime() - new Date(a.closedAt ?? 0).getTime());
+  console.log({ fetchedPRs, openPRs, openAssignedPRs, closedPRs });
 
   return (
-    <div>
-      <h1>{t("pullRequestList.myOpenPRs")}</h1>
-      <ul>
-        {pullRequests?.myOpenPRs.nodes.map((pr) => (
-          <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+    <div className={styles.prContainer}>
+      <h1>{t("pullRequestList.myOpenPRs.title")}</h1>
+
+      {fetchedPRs && openPRs?.length === 0 && (
+        <p className={styles.prNoneText}>{t("pullRequestList.myOpenPRs.none")}</p>
+      )}
+
+      <ul className={styles.prList}>
+        {openPRs?.map((pr) => (
+          <li key={pr.id} className={styles.prListItem}>
+            <a href={pr.url} className={styles.prLink}>
+              <span className={styles.prTitle}>{pr.title}</span>
+              <span className={styles.prRepo}>
+                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+              </span>
+            </a>
           </li>
         ))}
       </ul>
 
-      <h1>{t("pullRequestList.assignedOpenPRs")}</h1>
-      <ul>
-        {pullRequests?.assignedOpenPRs.nodes.map((pr) => (
-          <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+      <h1>{t("pullRequestList.assignedOpenPRs.title")}</h1>
+
+      {fetchedPRs && openAssignedPRs?.length === 0 && (
+        <p className={styles.prNoneText}>{t("pullRequestList.assignedOpenPRs.none")}</p>
+      )}
+
+      <ul className={styles.prList}>
+        {openAssignedPRs?.map((pr) => (
+          <li key={pr.id} className={styles.prListItem}>
+            <a href={pr.url} className={styles.prLink}>
+              <span className={styles.prTitle}>{pr.title}</span>
+              <span className={styles.prRepo}>
+                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+              </span>
+            </a>
           </li>
         ))}
       </ul>
 
-      <h1>{t("pullRequestList.closedPRs")}</h1>
-      <ul>
+      <h1>{t("pullRequestList.closedPRs.title")}</h1>
+
+      {fetchedPRs && closedPRs.length === 0 && (
+        <p className={styles.prNoneText}>{t("pullRequestList.closedPRs.none")}</p>
+      )}
+
+      <ul className={styles.prList}>
         {closedPRs.map((pr) => (
-          <li key={pr.id}>
-            <a href={pr.url}>{pr.title}</a> {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+          <li key={pr.id} className={styles.prListItem}>
+            <a href={pr.url} className={styles.prLink}>
+              <span className={styles.prTitle}>{pr.title}</span>
+              <span className={styles.prRepo}>
+                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+              </span>
+            </a>
           </li>
         ))}
       </ul>

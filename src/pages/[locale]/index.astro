@@ -1,7 +1,7 @@
 ---
-import Header from "../../components/Header/Header.astro";
 import { PullRequestList } from "../../components/PullRequestList/PullRequestList";
 import Layout from "../../layouts/Layout.astro";
+import styles from "./index.module.css";
 
 export const prerender = false;
 
@@ -9,14 +9,16 @@ const locale = Astro.currentLocale;
 ---
 
 <Layout>
-  {
-    Astro.locals.accessToken?.accessToken && (
-      <PullRequestList
-        client:load
-        accessToken={Astro.locals.accessToken.accessToken}
-        user={Astro.locals.user}
-        locale={locale}
-      />
-    )
-  }
+  <div class={styles.page}>
+    {
+      Astro.locals.accessToken?.accessToken && (
+        <PullRequestList
+          client:load
+          accessToken={Astro.locals.accessToken.accessToken}
+          user={Astro.locals.user}
+          locale={locale}
+        />
+      )
+    }
+  </div>
 </Layout>

@@ -5,7 +5,9 @@ import "@fontsource/prata";
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/typography.css";
+
 import Header from "../components/Header/Header.astro";
+import styles from "./Layout.module.css";
 ---
 
 <html lang="en">
@@ -17,7 +19,7 @@ import Header from "../components/Header/Header.astro";
     <meta name="generator" content={Astro.generator} />
     <title>PR Viewer</title>
   </head>
-  <body>
+  <body class={styles.body}>
     <Header />
     <slot />
   </body>

@@ -1,0 +1,53 @@
+.prContainer {
+  h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: 1rem;
+    color: var(--fiery-terracotta);
+  }
+}
+
+.prList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.prListItem {
+  list-style: none;
+}
+
+.prNoneText {
+  font-size: var(--text-base);
+  color: var(--color-gray-700);
+  font-style: italic;
+}
+
+.prLink {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+
+  padding: 1em 2em;
+  border-radius: 1em;
+
+  text-decoration: none;
+  background-color: var(--golden-sand);
+
+  &:hover {
+    background-color: var(--dry-sage);
+  }
+}
+
+.prTitle {
+  font-size: var(--text-lg);
+  color: var(--color-gray-100);
+}
+
+.prRepo {
+  font-size: var(--text-sm);
+  color: var(--color-gray-100);
+}
