@@ -74,7 +74,7 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
       <ul className={styles.prList}>
         {openPRs?.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
-            <a href={pr.url} className={styles.prLink}>
+            <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
               <span className={styles.prTitle}>{pr.title}</span>
               <span className={styles.prRepo}>
                 {t("pullRequestList.in")} {pr.repository.nameWithOwner}
@@ -93,7 +93,7 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
       <ul className={styles.prList}>
         {openAssignedPRs?.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
-            <a href={pr.url} className={styles.prLink}>
+            <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
               <span className={styles.prTitle}>{pr.title}</span>
               <span className={styles.prRepo}>
                 {t("pullRequestList.in")} {pr.repository.nameWithOwner}
@@ -112,7 +112,7 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
       <ul className={styles.prList}>
         {closedPRs.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
-            <a href={pr.url} className={styles.prLink}>
+            <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
               <span className={styles.prTitle}>{pr.title}</span>
               <span className={styles.prRepo}>
                 {t("pullRequestList.in")} {pr.repository.nameWithOwner}
