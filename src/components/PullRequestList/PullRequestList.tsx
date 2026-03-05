@@ -61,7 +61,6 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
   ]
     .filter((pr, index, self) => index === self.findIndex((p) => p.id === pr.id))
     .sort((a, b) => new Date(b.closedAt ?? 0).getTime() - new Date(a.closedAt ?? 0).getTime());
-  console.log({ fetchedPRs, openPRs, openAssignedPRs, closedPRs });
 
   return (
     <div className={styles.prContainer}>

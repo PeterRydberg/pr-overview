@@ -35,10 +35,12 @@
   border-radius: 1em;
 
   text-decoration: none;
-  background-color: var(--golden-sand);
+  background-image: var(--gradient-bottom-right);
+  background-size: 200% 200%;
+  transition: background-position 0.3s ease;
 
   &:hover {
-    background-color: var(--dry-sage);
+    background-position: 100% 100%;
   }
 }
 
