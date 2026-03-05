@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getTranslations } from "../../i18n/utils";
 import { pullRequestsQuery, type PullRequestsData } from "../../lib/queries/pull_requests";
 import styles from "./PullRequestList.module.css";
+import { Avatar } from "../Avatar/Avatar";
 
 interface PullRequestsListProps {
   accessToken: string;
@@ -74,10 +75,14 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
         {openPRs?.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
             <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
-              <span className={styles.prTitle}>{pr.title}</span>
-              <span className={styles.prRepo}>
-                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
-              </span>
+              <div className={styles.prInfo}>
+                <span className={styles.prTitle}>{pr.title}</span>
+                <span className={styles.prRepo}>
+                  {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+                </span>
+              </div>
+
+              {pr.author && <Avatar name={pr.author.login} image={pr.author.avatarUrl} />}
             </a>
           </li>
         ))}
@@ -93,10 +98,14 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
         {openAssignedPRs?.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
             <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
-              <span className={styles.prTitle}>{pr.title}</span>
-              <span className={styles.prRepo}>
-                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
-              </span>
+              <div className={styles.prInfo}>
+                <span className={styles.prTitle}>{pr.title}</span>
+                <span className={styles.prRepo}>
+                  {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+                </span>
+              </div>
+
+              {pr.author && <Avatar name={pr.author.login} image={pr.author.avatarUrl} />}
             </a>
           </li>
         ))}
@@ -112,10 +121,14 @@ export const PullRequestList = ({ accessToken, user, locale }: PullRequestsListP
         {closedPRs.map((pr) => (
           <li key={pr.id} className={styles.prListItem}>
             <a href={pr.url} target="_blank" rel="noopener noreferrer" className={styles.prLink}>
-              <span className={styles.prTitle}>{pr.title}</span>
-              <span className={styles.prRepo}>
-                {t("pullRequestList.in")} {pr.repository.nameWithOwner}
-              </span>
+              <div className={styles.prInfo}>
+                <span className={styles.prTitle}>{pr.title}</span>
+                <span className={styles.prRepo}>
+                  {t("pullRequestList.in")} {pr.repository.nameWithOwner}
+                </span>
+              </div>
+
+              {pr.author && <Avatar name={pr.author.login} image={pr.author.avatarUrl} />}
             </a>
           </li>
         ))}

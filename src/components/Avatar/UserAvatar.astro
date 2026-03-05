@@ -1,0 +1,7 @@
+---
+import { Avatar } from "./Avatar";
+
+const user = Astro.locals.user;
+---
+
+{user?.image && <Avatar client:load name={user.name} image={user.image} />}

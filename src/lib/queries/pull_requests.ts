@@ -22,6 +22,10 @@ export type PullRequestNode = {
   number: number;
   title: string;
   url: string;
+  author: {
+    login: string;
+    avatarUrl: string;
+  } | null;
   repository: {
     nameWithOwner: string;
     isPrivate: boolean;
@@ -38,6 +42,10 @@ const pullRequestNodeQuery = `{
     number
     title
     url
+    author {
+      login
+      avatarUrl
+    }
     repository { nameWithOwner isPrivate }
     createdAt
     updatedAt

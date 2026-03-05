@@ -28,7 +28,9 @@
 
 .prLink {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.25em;
 
   padding: 1em 2em;
@@ -37,11 +39,17 @@
   text-decoration: none;
   background-image: var(--gradient-bottom-right);
   background-size: 200% 200%;
-  transition: background-position 0.3s ease;
+  transition: background-position 0.6s ease;
 
   &:hover {
-    background-position: 100% 100%;
+    background-position: 50% 50%;
   }
+}
+
+.prInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
 }
 
 .prTitle {
