@@ -27,88 +27,76 @@
   --color-gray-800: #585858ff;
   --color-gray-900: #424242ff;
 
-  /* Custom Colors */
-  --fiery-terracotta: #e55934ff;
-  --rosy-copper: #d9594cff;
-  --toasted-almond: #ce8d66ff;
-  --golden-sand: #c3bf6dff;
-  --dry-sage: #b7b868ff;
+  --rust-brown: #a33100;
+  --red-orchre: #cc3d00;
+  --choral-glow: #ff8552;
+  --almond-silk: #ffd4c2;
 
-  --fiery-terracotta-hsla: hsla(13, 77%, 55%, 1);
-  --rosy-copper-hsla: hsla(6, 65%, 57%, 1);
-  --toasted-almond-hsla: hsla(23, 51%, 60%, 1);
-  --golden-sand-hsla: hsla(57, 42%, 60%, 1);
-  --dry-sage-hsla: hsla(61, 36%, 56%, 1);
+  --rust-brown-hsla: hsla(13, 77%, 55%, 1);
+  --red-orchre-hsla: hsla(6, 65%, 57%, 1);
+  --choral-glow-hsla: hsla(23, 51%, 60%, 1);
+  --almond-silk-hsla: hsla(57, 42%, 60%, 1);
 
   --gradient-top: linear-gradient(
     0deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-right: linear-gradient(
     90deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-bottom: linear-gradient(
     180deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-left: linear-gradient(
     270deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-top-right: linear-gradient(
     45deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-bottom-right: linear-gradient(
     135deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-top-left: linear-gradient(
     225deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-bottom-left: linear-gradient(
     315deg,
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
   --gradient-radial: radial-gradient(
-    var(--fiery-terracotta),
-    var(--rosy-copper),
-    var(--toasted-almond),
-    var(--golden-sand),
-    var(--dry-sage)
+    var(--rust-brown),
+    var(--red-orchre),
+    var(--choral-glow),
+    var(--almond-silk)
   );
 }

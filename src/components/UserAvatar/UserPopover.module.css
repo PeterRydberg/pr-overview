@@ -26,17 +26,17 @@
   cursor: pointer;
 
   padding: 0.5em 0.75em;
-  background-color: var(--toasted-almond);
+  background-color: var(--red-orchre);
   color: var(--color-gray-100);
   border-radius: 0.75em;
   text-align: center;
 
   &:hover {
-    background-color: var(--rosy-copper);
+    background-color: var(--rust-brown);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--toasted-almond);
+    outline: 2px solid var(--red-orchre);
     outline-offset: 2px;
     border-radius: inherit;
   }
