@@ -1,7 +1,6 @@
 ---
-import Header from "../../components/Header/Header.astro";
+import { getTranslations, locales } from "../../i18n/utils";
 import Layout from "../../layouts/Layout.astro";
-import { locales, getTranslations } from "../../i18n/utils";
 
 export const getStaticPaths = () => {
   return locales.map((locale) => ({ params: { locale } }));

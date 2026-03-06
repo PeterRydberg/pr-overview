@@ -1,0 +1,70 @@
+.iconButton {
+  all: unset;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gray-900);
+    outline-offset: 2px;
+    border-radius: 50%;
+  }
+}
+
+.popoverContent {
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--color-gray-100);
+  border-radius: 0.5em;
+  box-shadow:
+    0 10px 38px -10px rgba(0, 0, 0, 0.35),
+    0 10px 20px -15px rgba(0, 0, 0, 0.2);
+  padding: 1.5em;
+}
+
+.logoutButton {
+  all: unset;
+  cursor: pointer;
+
+  padding: 0.5em 0.75em;
+  background-color: var(--toasted-almond);
+  color: var(--color-gray-100);
+  border-radius: 0.75em;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--rosy-copper);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--toasted-almond);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+}
+
+.popoverClose {
+  all: unset;
+  position: absolute;
+  cursor: pointer;
+
+  top: 5px;
+  right: 5px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-gray-900);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--color-gray-900);
+    outline-offset: 1px;
+  }
+}
+
+.popoverArrow {
+  all: unset;
+  cursor: pointer;
+
+  fill: var(--color-gray-100);
+}

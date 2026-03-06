@@ -1,0 +1,16 @@
+---
+import { UserPopover } from "./UserPopover";
+
+const user = Astro.locals.user;
+---
+
+{
+  user?.image && (
+    <UserPopover
+      client:load
+      name={user.name}
+      image={user.image}
+      locale={Astro.currentLocale}
+    />
+  )
+}

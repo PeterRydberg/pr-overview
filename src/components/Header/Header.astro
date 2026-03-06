@@ -1,36 +1,10 @@
 ---
-import { getTranslations } from "../../i18n/utils";
-import UserAvatar from "../Avatar/UserAvatar.astro";
+import UserAvatar from "../UserAvatar/UserAvatar.astro";
 import styles from "./Header.module.css";
 
 const session = Astro.locals.session;
-const locale = Astro.currentLocale;
-
-const t = getTranslations(locale);
 ---
 
 <header class={styles.header}>
-  {session && <button id="logout">{t("header.logout")}</button>}
-  <UserAvatar />
+  {session && <UserAvatar />}
 </header>
-
-<script define:vars={{ locale }}>
-  window.__locale = locale;
-</script>
-
-<script>
-  import { DEFAULT_LOCALE } from "../../i18n/utils";
-
-  const { signOut } = await import("../../lib/auth/authClient.ts");
-  const logoutButton = document.querySelector("#logout");
-
-  logoutButton?.addEventListener("click", () =>
-    signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = `/${window.__locale ?? DEFAULT_LOCALE}/login`;
-        },
-      },
-    }),
-  );
-</script>
